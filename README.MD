@@ -10,7 +10,7 @@ Nama: Ezar Hardin Wiratama
 
 NIM: 21120123140116
 
-Kelompok/Shift: [Kelompok Praktikum]
+Kelompok/Shift: 07/02
 
 🛠️ Tech Stack
 
