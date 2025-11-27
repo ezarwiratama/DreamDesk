@@ -1,14 +1,17 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function CartScreen() {
+export default function Cart() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Keranjang Belanja Masih Kosong</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.text}>Keranjang Belanja Anda Kosong</Text>
+      <Text style={styles.subtext}>Ayo isi DreamDesk kamu!</Text>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  text: { fontSize: 18, color: 'gray' }
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff' },
+  text: { fontSize: 18, fontWeight: 'bold' },
+  subtext: { color: 'gray', marginTop: 10 }
 });

@@ -6,8 +6,8 @@ export default function ProfileScreen() {
       <View style={styles.avatar}>
         <Text style={{color:'white', fontWeight:'bold'}}>FOTO</Text>
       </View>
-      <Text style={styles.name}>Nama Mahasiswa</Text>
-      <Text style={styles.nim}>NIM: 12345678</Text>
+      <Text style={styles.name}>Ezar Hardin Wiratama</Text>
+      <Text style={styles.nim}>NIM: 21120123140116</Text>
       <Text style={styles.desc}>
         Aplikasi DreamDesk versi 1.0{'\n'}
         Tugas Akhir Praktikum Mobile.

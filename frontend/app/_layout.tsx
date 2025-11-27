@@ -1,13 +1,21 @@
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 export default function RootLayout() {
   return (
-    <Stack>
-      {/* Mengarahkan ke folder (tabs) sebagai halaman utama, header disembunyikan */}
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      
-      {/* Halaman Detail Produk */}
-      <Stack.Screen name="product/[id]" options={{ title: "Detail Produk" }} />
-    </Stack>
+    <>
+      <StatusBar style="dark" />
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen 
+          name="product/[id]" 
+          options={{ 
+            title: 'Detail Produk',
+            headerBackTitle: 'Back',
+            headerTintColor: '#000'
+          }} 
+        />
+      </Stack>
+    </>
   );
 }

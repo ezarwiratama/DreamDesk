@@ -1,48 +1,35 @@
-import { Tabs } from "expo-router";
-import { Home, Grid, ShoppingBag, User } from "lucide-react-native";
+import { Tabs } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: '#800000', // Merah Maroon untuk tab aktif
-        tabBarInactiveTintColor: 'gray', // Abu-abu untuk tab tidak aktif
-        tabBarStyle: {
-          borderTopWidth: 0,
-          elevation: 10, // Bayangan lembut di Android
-          shadowOpacity: 0.1, // Bayangan lembut di iOS
-          height: 60,
-          paddingBottom: 10,
-        },
-        headerShown: false, // Sembunyikan header default di semua tab
-      }}
-    >
+    <Tabs screenOptions={{ tabBarActiveTintColor: '#6200EE', headerShown: false }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Beranda',
-          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="catalog"
         options={{
-          title: 'Katalog',
-          tabBarIcon: ({ color }) => <Grid size={24} color={color} />,
+          title: 'Catalog',
+          tabBarIcon: ({ color }) => <Ionicons name="grid-outline" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="cart"
         options={{
-          title: 'Keranjang',
-          tabBarIcon: ({ color }) => <ShoppingBag size={24} color={color} />,
+          title: 'Cart',
+          tabBarIcon: ({ color }) => <Ionicons name="cart-outline" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profil',
-          tabBarIcon: ({ color }) => <User size={24} color={color} />,
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Ionicons name="person-outline" size={24} color={color} />,
         }}
       />
     </Tabs>
