@@ -2,7 +2,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'rea
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 
-const API_URL = 'http://192.168.1.XX:3000/api/products';
+const API_URL = 'http://10.104.37.127:5000/api/products';
 
 export default function ProductDetail() {
   const { id } = useLocalSearchParams();

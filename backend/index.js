@@ -17,12 +17,27 @@ const productRoutes = require('./routes/productRoutes');
 app.use('/api/products', productRoutes);
 
 // Route Cek Server (Hanya untuk memastikan server nyala)
-app.get('/', (req, res) => {
-  res.send('Server DreamDesk Berjalan! 🚀');
-});
+// app.get('/', (req, res) => {
+//   res.send('Server DreamDesk Berjalan! 🚀');
+// });
 
 // Jalankan Server
 app.listen(PORT, () => {
   console.log(`Server berjalan di port ${PORT}`);
   console.log(`Test endpoint: http://localhost:${PORT}/api/products`);
 });
+
+// Route Default
+app.get('/', (req, res) => {
+  res.send('DreamDesk Backend is Running on Vercel!');
+});
+
+// PENTING: Tambahkan export module.exports = app;
+// Vercel membutuhkan ini.
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
