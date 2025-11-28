@@ -5,7 +5,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Ganti dengan IP Address lokal Anda untuk testing backend Express
 // const API_URL = 'http://192.168.1.69:5000/api/products'; 
-const API_URL = 'http://10.104.37.127:5000/api/products';
+// const API_URL = 'http://10.104.37.127:5000/api/products';
+const API_URL = 'https://dreamdesk-backend.vercel.app/api/products';
+
 
 export default function Catalog() {
   const [products, setProducts] = useState([]);

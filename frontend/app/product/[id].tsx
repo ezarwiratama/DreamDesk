@@ -1,24 +1,61 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabase'; // Import config supabase
 
-const API_URL = 'http://10.104.37.127:5000/api/products';
+const API_URL = 'https://dreamdesk-backend.vercel.app/api'; 
 
 export default function ProductDetail() {
   const { id } = useLocalSearchParams();
   const [product, setProduct] = useState<any>(null);
+  const [isAdding, setIsAdding] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (id) {
-      fetch(`${API_URL}/${id}`)
+      fetch(`${API_URL}/products/${id}`)
         .then(res => res.json())
         .then(data => setProduct(data))
         .catch(err => console.error(err));
     }
   }, [id]);
 
-  if (!product) return <View style={styles.container}><Text>Loading...</Text></View>;
+  const addToCart = async () => {
+    // 1. Cek Login
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+        Alert.alert("Belum Login", "Silakan login untuk belanja", [
+            { text: "Nanti" },
+            { text: "Login Sekarang", onPress: () => router.push('/(tabs)/profile') }
+        ]);
+        return;
+    }
+
+    setIsAdding(true);
+    try {
+      // 2. Kirim user_id ke Backend
+      const res = await fetch(`${API_URL}/cart`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+            product_id: product.id, 
+            user_id: session.user.id // ID User Unik
+        }),
+      });
+
+      if (res.ok) {
+        Alert.alert("Sukses", "Barang masuk keranjang!");
+      } else {
+        Alert.alert("Gagal", "Terjadi kesalahan server");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsAdding(false);
+    }
+  };
+
+  if (!product) return <View style={styles.center}><ActivityIndicator color="#6200EE" /></View>;
 
   return (
     <View style={styles.container}>
@@ -31,11 +68,9 @@ export default function ProductDetail() {
           <Text style={styles.description}>{product.description}</Text>
         </View>
       </ScrollView>
-      
-      {/* Bottom Action Bar */}
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.cartBtn} onPress={() => alert('Added to cart!')}>
-          <Text style={styles.cartText}>Add to Cart</Text>
+        <TouchableOpacity style={styles.cartBtn} onPress={addToCart} disabled={isAdding}>
+          {isAdding ? <ActivityIndicator color="#FFF" /> : <Text style={styles.cartText}>Add to Cart</Text>}
         </TouchableOpacity>
       </View>
     </View>
@@ -44,6 +79,7 @@ export default function ProductDetail() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFF' },
+  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   image: { width: '100%', height: 300, resizeMode: 'cover' },
   details: { padding: 20 },
   title: { fontSize: 26, fontWeight: 'bold', marginBottom: 10 },
